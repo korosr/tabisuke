@@ -64,7 +64,7 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="col justify-content-end align-self-center">
+                            <div class="col justify-content-end align-self-center" id="deletebtn">
                                 <i class="fas fa-trash-alt fa-2x float-right"></i>
                             </div>
                         </div>                     
@@ -107,6 +107,13 @@
 
             //「boxes」の要素の最後尾に複製した要素を追加
             boxes.appendChild(clone); 
+        });
+
+        //idが「deletebtn」の要素を取得
+        let deletebutton = document.getElementById("deletebtn");
+        deletebutton.addEventListener("click", function(){
+            let boxes = document.getElementById("planbox");
+            boxes.remove();
         });
     </script>
   @endsection
