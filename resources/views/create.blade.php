@@ -35,27 +35,27 @@
                     <div class="card-text  p-3">
                         <div class="form-group row">
                             <div class="input-group date col-sm-3" id="datePicker" data-target-input="nearest">
-                            <input type="text" class="form-control form-control-sm datetimepicker-input" data-target="#datePicker" placeholder="日付を入力"/>
+                            <input type="text" name="date[]" class="form-control form-control-sm datetimepicker-input" data-target="#datePicker" placeholder="日付を入力"/>
                             <div class="input-group-append" data-target="#datePicker" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                             </div>
                             <div class="input-group date col-sm-3" id="timePicker" data-target-input="nearest">
-                                <input type="text" class="form-control form-control-sm datetimepicker-input" data-target="#timePicker" placeholder="時間を入力"/>
+                                <input type="text" name="time[]" class="form-control form-control-sm datetimepicker-input" data-target="#timePicker" placeholder="時間を入力"/>
                                 <div class="input-group-append" data-target="#timePicker" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-clock"></i></div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="title" class="form-control" required value="{{ old('title') }}" placeholder="タイトル">
+                            <input type="text" name="title[]" class="form-control" required value="{{ old('title') }}" placeholder="タイトル">
                         </div>
                         <div class="form-group">
-                            <textarea name="contents" class="form-control" required value="{{ old('contents') }}" placeholder="内容"></textarea>
+                            <textarea name="contents[]" class="form-control" required value="{{ old('contents') }}" placeholder="内容"></textarea>
                         </div>
                         <div class="form-group row">
                             <div class="btn-group dropright col-sm-2">
-                                <button class="btn btn-info dropdown-toggle btn-sm" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-info dropdown-toggle btn-sm" type="button" name="category[]" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 カテゴリー
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
