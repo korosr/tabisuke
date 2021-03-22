@@ -8,7 +8,7 @@
             <div class="text-center m-5">
                 <img src="{{ asset('/assets/images/plane.png') }}" alt="しおり画像" class="rounded-circle" width="100" height="100">
             </div>    
-            <h4 class="text-center m-3 text-muted">しおりのタイトル</h4>
+            <h4 class="text-center m-3 text-muted">旅のタイトル</h4>
             <div class="card mt-3">
               <div class="card-body pt-0">
                 <div class="card-text  p-3">
@@ -53,20 +53,21 @@
                         <div class="form-group">
                             <textarea name="contents" class="form-control" required value="{{ old('contents') }}" placeholder="内容"></textarea>
                         </div>
-                        <div class="btn-group dropright">
-                            <button class="btn btn-info dropdown-toggle btn-sm" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            カテゴリー
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                            <button class="dropdown-item" type="button"><span class="text-muted">移動</span></button>
-                            <button class="dropdown-item" type="button"><span class="text-muted">観光</span></button>
-                            <button class="dropdown-item" type="button"><span class="text-muted">食事</span></button>
-                            <button class="dropdown-item" type="button"><span class="text-muted">カフェ</span></button>
-                            <button class="dropdown-item" type="button"><span class="text-muted">宿</span></button>
-                            <button class="dropdown-item" type="button"><span class="text-muted">食事</span></button>
-                            <button class="dropdown-item" type="button"><span class="text-muted">フリータイム</span></button>
+                        <div class="form-group row">
+                            <div class="btn-group dropright col-sm-2">
+                                <button class="btn btn-info dropdown-toggle btn-sm" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                カテゴリー
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                    @foreach($categories as $category)
+                                    <button class="dropdown-item" type="button" id="{{$category -> id}}"><span class="text-muted">{{$category -> category_name}}</span></button>
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>                      
+                            <div class="col justify-content-end align-self-center">
+                                <i class="fas fa-trash-alt fa-2x float-right"></i>
+                            </div>
+                        </div>                     
                     </div>
                 　</div>
                 </div>
