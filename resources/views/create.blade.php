@@ -29,7 +29,7 @@
                 <img src="{{ asset('/assets/images/calendar.png') }}" alt="プラン画像" class="rounded-circle" width="100" height="100">
             </div> 
             <h4 class="text-center m-5 text-muted">プラン</h4>
-            <div  id="planbox">
+            <div class="planbox">
                 <div class="card mt-3 mb-3">
                     <div class="card-body pt-0">
                     <div class="card-text  p-3">
@@ -64,7 +64,7 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="col justify-content-end align-self-center" id="deletebtn">
+                            <div class="col justify-content-end align-self-center" class="deleteBtn" onclick="deletePlan()">
                                 <i class="fas fa-trash-alt fa-2x float-right"></i>
                             </div>
                         </div>                     
@@ -72,16 +72,14 @@
                 　</div>
                 </div>
             </div>
-            <button type="button" class="btn btn-outline-info waves-effect" id="addbutton"><i class="fas fa-plus mx-1"></i>プラン追加</button>
+            <button type="button" class="btn btn-outline-info waves-effect" id="addbutton" onclick="addPlan()"><i class="fas fa-plus mx-1"></i>プラン追加</button>
             <div class="text-center m-5">
                 <img src="{{ asset('/assets/images/book.png') }}" alt="その他画像" class="rounded-circle" width="100" height="100">
             </div> 
             <h4 class="text-center m-5 text-muted">共有事項</h4>
             <div class="card m-3">
                 <div class="card-body pt-0">
-                  <div class="card-text  pt-3">
-                    <form method="POST" action="">
-                      @csrf    
+                  <div class="card-text  pt-3">  
                       <div class="form-group">
                         <textarea name="contents" class="form-control" required value="{{ old('contents') }}" placeholder="内容" rows="4"></textarea>
                     </div>
@@ -89,31 +87,37 @@
               　</div>
             </div>
             <button type="submit" class="btn blue-gradient btn-block col-sm-4 mx-auto d-block">作成する</button>
-            </form>
-    　　　</div>
-        </div>
+        </form>
+    　　</div>
+    </div>
     </div>
     <script>
-        //idが「addbutton」の要素を取得
-        let addbutton = document.getElementById("addbutton");
-
-        //ボタンをクリックしたときに実行(イベントリスナー使用：ie9は以上で動作)
-        addbutton.addEventListener("click", function(){
+        //planboxにつけるid
+        var planboxId = 0;
+        function addPlan(){
             //idが「boxes」の要素を取得
-            let boxes = document.getElementById("planbox");
-
+            let boxes = document.getElementsByClassName("planbox");
             //「boxes」の要素の先頭にある子要素を複製（コピー）
-            let clone = boxes.firstElementChild.cloneNode(true);
-
+            let clone = boxes[boxes.length-1].cloneNode(true);
+            clone.id = planboxId;
+            document.getElementById(planboxId).id = planboxId;
+            planboxId++;
             //「boxes」の要素の最後尾に複製した要素を追加
-            boxes.appendChild(clone); 
-        });
+            boxes[boxes.length-1].appendChild(clone); 
+        }
 
         //idが「deletebtn」の要素を取得
-        let deletebutton = document.getElementById("deletebtn");
-        deletebutton.addEventListener("click", function(){
-            let boxes = document.getElementById("planbox");
-            boxes.remove();
-        });
+        // var deletebutton = document.getElementsByClassName("deletebtn");
+        // for(var i=0; i<deletebutton.length; i++){
+        //     deletebutton[i].onclick = function(){
+        //         let boxes = document.getElementsByClassName("planbox");
+        //         boxes[i].remove();
+        //     }
+        // }
+
+        function deletePlan(){
+            var deletebutton = document.getElementsByClassName("deleteBtn");
+            console.log(deletebutton);
+        }
     </script>
   @endsection
