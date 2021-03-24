@@ -66,7 +66,7 @@
                             </div> -->
                             <div class="col-sm-6">
                             @foreach($categories as $category)
-                            <div class="form-check">
+                            <div class="form-check-inline">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault<?=$category->id ?>">
                                 <label class="form-check-label" for="flexRadioDefault<?=$category->id ?>">
                                     {{$category -> category_name}}
@@ -74,8 +74,10 @@
                             </div>
                             @endforeach
                             </div>
+                        </div>
+                        <div class="form-group">
                             <i class="fas fa-times fa-2x float-right col-sm-1 align-self-center text-right" id="deleteBtn_0" onclick="deletePlan(this.id)"></i>
-                        </div>                     
+                        </div>
                     </div>
                 　</div>
                 </div>
