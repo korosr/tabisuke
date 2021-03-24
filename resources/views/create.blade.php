@@ -13,7 +13,7 @@
               <div class="card-body pt-0">
                 <div class="card-text  p-3">
                   <form method="POST" action="">
-                    @csrf    
+                    @csrf
                     <div class="md-form">
                         <label>タイトル</label>
                         <input type="text" name="title" class="form-control" required value="{{ old('title') }}">
@@ -98,12 +98,20 @@
             //ルート要素を取得
             let box = document.getElementById("planbox");
             //コピーしたい要素取得
-            let planbox = document.getElementById("planbox_" + i);
+            let planbox = document.getElementById("planbox_0");
             //「boxes」の要素の先頭にある子要素を複製（コピー）
             let clone = planbox.cloneNode(true);
             //クローンした要素にidを付ける
             clone.id = "planbox_"　+ (i+1);
-            clone.querySelector('#deleteBtn_' + i).id = "deleteBtn_" + (i+1);
+            clone.querySelector('#deleteBtn_0').id = "deleteBtn_" + (i+1);
+            //入力値をリセット
+            let inputTag = clone.getElementsByTagName('input');
+            let textareaTag = clone.getElementsByTagName('textarea');
+            textareaTag[0].value = '';
+            for(i=0; i < inputTag.length; i++){
+                inputTag[i].value = '';
+            }
+
             i++;
             //「boxes」の要素の最後尾に複製した要素を追加
             box.appendChild(clone);
