@@ -54,7 +54,7 @@
                             <textarea name="contents[]" class="form-control" value="{{ old('contents') }}" placeholder="内容"></textarea>
                         </div>
                         <div class="form-group row justify-content-between">
-                            <div class="btn-group dropright col-sm-2 dropdown">
+                            <!-- <div class="btn-group dropright col-sm-2 dropdown">
                                 <button class="btn btn-info dropdown-toggle btn-sm" type="button" name="category[]" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 カテゴリー
                                 </button>
@@ -63,6 +63,16 @@
                                     <li><button class="dropdown-item" type="button" id="{{$category -> id}}" value="{{$category -> category_name}}"><span class="text-muted">{{$category -> category_name}}</span></button></li>
                                     @endforeach
                                 </ul>
+                            </div> -->
+                            <div class="col-sm-6">
+                            @foreach($categories as $category)
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault<?=$category->id ?>">
+                                <label class="form-check-label" for="flexRadioDefault<?=$category->id ?>">
+                                    {{$category -> category_name}}
+                                </label>
+                            </div>
+                            @endforeach
                             </div>
                             <i class="fas fa-times fa-2x float-right col-sm-1 align-self-center text-right" id="deleteBtn_0" onclick="deletePlan(this.id)"></i>
                         </div>                     
@@ -91,6 +101,7 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script>
+         
         $(function(){
             $('.dropdown-menu .dropdown-item').click(function(){
                 var visibleItem = $('.dropdown-toggle', $(this).closest('.dropdown'));
