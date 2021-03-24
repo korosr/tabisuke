@@ -29,8 +29,8 @@
                 <img src="{{ asset('/assets/images/calendar.png') }}" alt="プラン画像" class="rounded-circle" width="100" height="100">
             </div> 
             <h4 class="text-center m-5 text-muted">プラン</h4>
-            <div class="planbox">
-                <div class="card mt-3 mb-3">
+            <div id="planbox">
+                <div class="card mt-3 mb-3" id=planbox_0>
                     <div class="card-body pt-0">
                     <div class="card-text  p-3">
                         <div class="form-group row">
@@ -64,8 +64,8 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="col justify-content-end align-self-center" class="deleteBtn" onclick="deletePlan()">
-                                <i class="fas fa-trash-alt fa-2x float-right"></i>
+                            <div class="col justify-content-end align-self-center" id="deleteBtn_0" onclick="deletePlan(this.id)">
+                                <i class="fas fa-times fa-2x float-right"></i>
                             </div>
                         </div>                     
                     </div>
@@ -93,31 +93,34 @@
     </div>
     <script>
         //planboxにつけるid
-        var planboxId = 0;
+        var i = 0;
         function addPlan(){
-            //idが「boxes」の要素を取得
-            let boxes = document.getElementsByClassName("planbox");
+            //ルート要素を取得
+            let box = document.getElementById("planbox");
+            //コピーしたい要素取得
+            let planbox = document.getElementById("planbox_" + i);
             //「boxes」の要素の先頭にある子要素を複製（コピー）
-            let clone = boxes[boxes.length-1].cloneNode(true);
-            clone.id = planboxId;
-            document.getElementById(planboxId).id = planboxId;
-            planboxId++;
+            let clone = planbox.cloneNode(true);
+            //クローンした要素にidを付ける
+            clone.id = "planbox_"　+ (i+1);
+            clone.querySelector('#deleteBtn_' + i).id = "deleteBtn_" + (i+1);
+            i++;
             //「boxes」の要素の最後尾に複製した要素を追加
-            boxes[boxes.length-1].appendChild(clone); 
+            box.appendChild(clone);
         }
 
-        //idが「deletebtn」の要素を取得
-        // var deletebutton = document.getElementsByClassName("deletebtn");
-        // for(var i=0; i<deletebutton.length; i++){
-        //     deletebutton[i].onclick = function(){
-        //         let boxes = document.getElementsByClassName("planbox");
-        //         boxes[i].remove();
-        //     }
-        // }
-
-        function deletePlan(){
-            var deletebutton = document.getElementsByClassName("deleteBtn");
-            console.log(deletebutton);
+        function deletePlan(id){
+            //_以降の番号を取得
+            var index = id.indexOf("_");
+            var number = id.slice(index+1);
+            //削除対象のプランを取得
+            if(number == 0){
+                //最初のプランは消せない旨をアラート表示
+                alert('削除できません');
+            }else{
+                var delPlan = document.getElementById("planbox_" + number);
+                delPlan.remove();
+            }
         }
     </script>
   @endsection
