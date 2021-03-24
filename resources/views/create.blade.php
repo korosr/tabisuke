@@ -12,15 +12,15 @@
             <div class="card mt-3">
               <div class="card-body pt-0">
                 <div class="card-text  p-3">
-                  <form method="POST" action="">
+                  <form method="POST" action="{{ route('guides.store') }}">
                     @csrf
                     <div class="md-form">
                         <label>タイトル</label>
-                        <input type="text" name="title" class="form-control" required value="{{ old('title') }}">
+                        <input type="text" name="title" class="form-control" value="{{ old('title') }}">
                     </div>
                     <div class="md-form">
                         <label>サブタイトル</label>
-                        <input type="text" name="title" class="form-control" required value="{{ old('title') }}">
+                        <input type="text" name="subtitle" class="form-control" value="{{ old('subtitle') }}">
                     </div>
                 </div>
             　</div>
@@ -48,21 +48,21 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="title[]" class="form-control" required value="{{ old('title') }}" placeholder="タイトル">
+                            <input type="text" name="title[]" class="form-control" value="{{ old('title') }}" placeholder="タイトル">
                         </div>
                         <div class="form-group">
-                            <textarea name="contents[]" class="form-control" required value="{{ old('contents') }}" placeholder="内容"></textarea>
+                            <textarea name="contents[]" class="form-control" value="{{ old('contents') }}" placeholder="内容"></textarea>
                         </div>
-                        <div class="form-group row justify-content-between ">
-                            <div class="btn-group dropright col-sm-2">
+                        <div class="form-group row justify-content-between">
+                            <div class="btn-group dropright col-sm-2 dropdown">
                                 <button class="btn btn-info dropdown-toggle btn-sm" type="button" name="category[]" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 カテゴリー
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                     @foreach($categories as $category)
-                                    <button class="dropdown-item" type="button" id="{{$category -> id}}"><span class="text-muted">{{$category -> category_name}}</span></button>
+                                    <li><button class="dropdown-item" type="button" id="{{$category -> id}}" value="{{$category -> category_name}}"><span class="text-muted">{{$category -> category_name}}</span></button></li>
                                     @endforeach
-                                </div>
+                                </ul>
                             </div>
                             <i class="fas fa-times fa-2x float-right col-sm-1 align-self-center text-right" id="deleteBtn_0" onclick="deletePlan(this.id)"></i>
                         </div>                     
@@ -79,7 +79,7 @@
                 <div class="card-body pt-0">
                   <div class="card-text  pt-3">  
                       <div class="form-group">
-                        <textarea name="contents" class="form-control" required value="{{ old('contents') }}" placeholder="内容" rows="4"></textarea>
+                        <textarea name="contents" class="form-control" value="{{ old('contents') }}" placeholder="内容" rows="4"></textarea>
                     </div>
                   </div>
               　</div>
@@ -89,7 +89,15 @@
     　　</div>
     </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script>
+        $(function(){
+            $('.dropdown-menu .dropdown-item').click(function(){
+                var visibleItem = $('.dropdown-toggle', $(this).closest('.dropdown'));
+                visibleItem.text($(this).attr('value'));
+            });
+        });
+
         //planboxにつけるid
         var i = 0;
         function addPlan(){

@@ -18,4 +18,10 @@ class GuideController extends Controller
         $categories = Category::all();
         return view('create', compact('categories'));
     }
+
+    //登録処理
+    public function store(){
+        
+        return view('index');
+    }
 }
