@@ -53,7 +53,7 @@
                         <div class="form-group">
                             <textarea name="contents[]" class="form-control" required value="{{ old('contents') }}" placeholder="内容"></textarea>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row justify-content-between ">
                             <div class="btn-group dropright col-sm-2">
                                 <button class="btn btn-info dropdown-toggle btn-sm" type="button" name="category[]" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 カテゴリー
@@ -64,9 +64,7 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="col justify-content-end align-self-center" id="deleteBtn_0" onclick="deletePlan(this.id)">
-                                <i class="fas fa-times fa-2x float-right"></i>
-                            </div>
+                            <i class="fas fa-times fa-2x float-right col-sm-1 align-self-center text-right" id="deleteBtn_0" onclick="deletePlan(this.id)"></i>
                         </div>                     
                     </div>
                 　</div>
@@ -111,7 +109,6 @@
             for(i=0; i < inputTag.length; i++){
                 inputTag[i].value = '';
             }
-
             i++;
             //「boxes」の要素の最後尾に複製した要素を追加
             box.appendChild(clone);
