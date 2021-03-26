@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="title[]" class="form-control" value="{{ old('title') }}" placeholder="タイトル">
+                            <input type="text" name="plan_title[]" class="form-control" value="{{ old('title') }}" placeholder="タイトル">
                         </div>
                         <div class="form-group">
                             <textarea name="contents[]" class="form-control" value="{{ old('contents') }}" placeholder="内容"></textarea>
@@ -65,14 +65,14 @@
                                 </ul>
                             </div> -->
                             <div class="col-sm-6">
-                            @foreach($categories as $category)
-                            <div class="form-check-inline">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault<?=$category->id ?>">
-                                <label class="form-check-label" for="flexRadioDefault<?=$category->id ?>">
-                                    {{$category -> category_name}}
-                                </label>
-                            </div>
-                            @endforeach
+                                @foreach($categories as $category)
+                                <div class="form-check-inline">
+                                    <input class="form-check-input" type="radio" name="category_id[]" id="flexRadioDefault<?=$category->id ?>">
+                                    <label class="form-check-label" for="flexRadioDefault<?=$category->id ?>">
+                                        {{$category -> category_name}}
+                                    </label>
+                                </div>
+                                @endforeach
                             </div>
                         </div>
                         <div class="form-group">
@@ -91,7 +91,7 @@
                 <div class="card-body pt-0">
                   <div class="card-text  pt-3">  
                       <div class="form-group">
-                        <textarea name="contents" class="form-control" value="{{ old('contents') }}" placeholder="内容" rows="4"></textarea>
+                        <textarea name="shared_memo" class="form-control" value="{{ old('shared_memo') }}" placeholder="内容" rows="4"></textarea>
                     </div>
                   </div>
               　</div>
