@@ -28,23 +28,21 @@ class GuideController extends Controller
     //登録処理
     public function store(GuideRequest $guidereq, PlanRequest $planreq){
         
-        $guide = new Guide();
-        $guide->create([
+        $guide = Guide::create([
             'title' => $guidereq->input('title'),
             'sub_title' => $guidereq->input('subtitle'),
             'shared_memo' => $guidereq->input('shared_memo'),
         ]);
 
-        $plan = new Plan();
         //時間と日付を一緒にする
-        $datetime_in = strtotime($guidereq->input('date')[0].$guidereq->input('time')[0]);
-        $datetime = date('Y-m-d H:i:s', $datetime_in);
-       
-        $plan->create([
-            'date_time' => $guidereq->input($datetime),
-            'plan_title' => $guidereq->input('plan_title')[0],
-            'contents' => $guidereq->input('contents')[0],
-            'category_id' => $guidereq->input('category_id')[0],
+        $datetime_in = strtotime($planreq->input('date')[0].$planreq->input('time')[0]);
+        $datetime = date('Y-m-d H:i', $datetime_in);
+        
+        $plan = Plan::create([
+            'date_time' => $datetime,
+            'plan_title' => $planreq->input('plan_title')[0],
+            'contents' => $planreq->input('contents')[0],
+            'category_id' => $planreq->input('category')[0],
         ]);
 
         $guide_plan = new GuidePlan();

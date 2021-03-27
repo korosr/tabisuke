@@ -18,12 +18,14 @@ class PlanRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
+     *htmlspecialchars
      * @return array
      */
     public function rules()
     {
         return [
+            'date' => 'required',
+            'time' => 'required',
             'plan_title' => 'required|max:100',
         ];
     }
@@ -31,6 +33,7 @@ class PlanRequest extends FormRequest
     public function attributes()
     {
         return [
+            'date_time' => '日時',
             'plan_title' => 'プランタイトル',
         ];
     }

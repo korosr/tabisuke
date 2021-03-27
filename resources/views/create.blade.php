@@ -65,14 +65,16 @@
                                 </ul>
                             </div> -->
                             <div class="col-sm-6">
-                                @foreach($categories as $category)
+                                
                                 <div class="form-check-inline">
-                                    <input class="form-check-input" type="radio" name="category_id[]" id="flexRadioDefault<?=$category->id ?>">
-                                    <label class="form-check-label" for="flexRadioDefault<?=$category->id ?>">
-                                        {{$category -> category_name}}
-                                    </label>
+                                    @foreach($categories as $category)
+                                        <input class="form-check-input mr-0" type="radio" name="category[]" id="flexRadioDefault<?=$category->id ?>" value="<?=$category->id ?>">
+                                        <label class="form-check-label mr-2" for="flexRadioDefault<?=$category->id ?>">
+                                            {{$category -> category_name}}
+                                        </label>
+                                    @endforeach
                                 </div>
-                                @endforeach
+                                
                             </div>
                         </div>
                         <div class="form-group">
