@@ -34,17 +34,11 @@
                     <div class="card-body pt-0">
                     <div class="card-text  p-3">
                         <div class="form-group row">
-                            <div class="input-group date col-sm-3" id="datePicker" data-target-input="nearest">
-                            <input type="text" name="date[]" class="form-control form-control-sm datetimepicker-input" data-target="#datePicker" placeholder="日付を入力"/>
-                            <div class="input-group-append" data-target="#datePicker" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            <div class="input-group col-sm-3">
+                                <input type="date" name="date[]" class="form-control">
                             </div>
-                            </div>
-                            <div class="input-group date col-sm-3" id="timePicker" data-target-input="nearest">
-                                <input type="text" name="time[]" class="form-control form-control-sm datetimepicker-input" data-target="#timePicker" placeholder="時間を入力"/>
-                                <div class="input-group-append" data-target="#timePicker" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-clock"></i></div>
-                                </div>
+                            <div class="input-group col-sm-3">
+                                <input type="time" name="time[]" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
@@ -54,22 +48,12 @@
                             <textarea name="contents[]" class="form-control" value="{{ old('contents') }}" placeholder="内容"></textarea>
                         </div>
                         <div class="form-group row justify-content-between">
-                            <!-- <div class="btn-group dropright col-sm-2 dropdown">
-                                <button class="btn btn-info dropdown-toggle btn-sm" type="button" name="category[]" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                カテゴリー
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                    @foreach($categories as $category)
-                                    <li><button class="dropdown-item" type="button" id="{{$category -> id}}" value="{{$category -> category_name}}"><span class="text-muted">{{$category -> category_name}}</span></button></li>
-                                    @endforeach
-                                </ul>
-                            </div> -->
                             <div class="col-sm-6">
                                 
                                 <div class="form-check-inline">
                                     @foreach($categories as $category)
-                                        <input class="form-check-input mr-0" type="radio" name="category[]" id="flexRadioDefault<?=$category->id ?>" value="<?=$category->id ?>">
-                                        <label class="form-check-label mr-2" for="flexRadioDefault<?=$category->id ?>">
+                                        <input class="form-check-input mr-0" type="radio" name="category[]" class="category" value="<?=$category->id ?>" @if($category->id == 1) checked @endif>
+                                        <label class="form-check-label mr-2">
                                             {{$category -> category_name}}
                                         </label>
                                     @endforeach
@@ -77,7 +61,7 @@
                                 
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group delete_btn" hidden>
                             <i class="fas fa-times fa-2x float-right col-sm-1 align-self-center text-right" id="deleteBtn_0" onclick="deletePlan(this.id)"></i>
                         </div>
                     </div>
@@ -114,7 +98,8 @@
         });
 
         //planboxにつけるid
-        var i = 0;
+        var x = 1;
+        var y = 1;
         function addPlan(){
             //ルート要素を取得
             let box = document.getElementById("planbox");
@@ -123,8 +108,9 @@
             //「boxes」の要素の先頭にある子要素を複製（コピー）
             let clone = planbox.cloneNode(true);
             //クローンした要素にidを付ける
-            clone.id = "planbox_"　+ (i+1);
-            clone.querySelector('#deleteBtn_0').id = "deleteBtn_" + (i+1);
+            clone.id = "planbox_"　+ x++;
+            clone.querySelector('#deleteBtn_0').id = "deleteBtn_" + y++;
+            clone.querySelector('.delete_btn').hidden = false;
             //入力値をリセット
             let inputTag = clone.getElementsByTagName('input');
             let textareaTag = clone.getElementsByTagName('textarea');
@@ -132,7 +118,6 @@
             for(i=0; i < inputTag.length; i++){
                 inputTag[i].value = '';
             }
-            i++;
             //「boxes」の要素の最後尾に複製した要素を追加
             box.appendChild(clone);
         }
@@ -141,14 +126,10 @@
             //_以降の番号を取得
             var index = id.indexOf("_");
             var number = id.slice(index+1);
-            //削除対象のプランを取得
-            if(number == 0){
-                //最初のプランは消せない旨をアラート表示
-                alert('削除できません');
-            }else{
-                var delPlan = document.getElementById("planbox_" + number);
-                delPlan.remove();
-            }
-        }
+           
+            var delPlan = document.getElementById("planbox_" + number);
+            delPlan.remove();
+	    }
+        
     </script>
   @endsection

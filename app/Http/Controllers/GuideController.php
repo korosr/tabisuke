@@ -28,6 +28,7 @@ class GuideController extends Controller
     //登録処理
     public function store(GuideRequest $guidereq, PlanRequest $planreq){
         
+        dd($planreq->input('date').size());
         $guide = Guide::create([
             'title' => $guidereq->input('title'),
             'sub_title' => $guidereq->input('subtitle'),
