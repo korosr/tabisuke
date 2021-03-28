@@ -9,10 +9,10 @@
                 <img src="{{ asset('/assets/images/plane.png') }}" alt="しおり画像" class="rounded-circle" width="100" height="100">
             </div>    
             <h4 class="text-center m-3 text-muted">旅のタイトル</h4>
+            <form method="POST" action="{{ route('guides.store') }}">
             <div class="card mt-3">
               <div class="card-body pt-0">
-                <div class="card-text  p-3">
-                  <form method="POST" action="{{ route('guides.store') }}">
+                <div class="card-text  p-3">          
                     @csrf
                     <div class="md-form">
                         <label>タイトル</label>
@@ -32,39 +32,39 @@
             <div id="planbox">
                 <div class="card mt-3 mb-3" id=planbox_0>
                     <div class="card-body pt-0">
-                    <div class="card-text  p-3">
-                        <div class="form-group row">
-                            <div class="input-group col-sm-3">
-                                <input type="date" name="date[]" class="form-control">
-                            </div>
-                            <div class="input-group col-sm-3">
-                                <input type="time" name="time[]" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="plan_title[]" class="form-control" value="{{ old('title') }}" placeholder="タイトル">
-                        </div>
-                        <div class="form-group">
-                            <textarea name="contents[]" class="form-control" value="{{ old('contents') }}" placeholder="内容"></textarea>
-                        </div>
-                        <div class="form-group row justify-content-between">
-                            <div class="col-sm-6">
-                                
-                                <div class="form-check-inline">
-                                    @foreach($categories as $category)
-                                        <input class="form-check-input mr-0" type="radio" name="category[]" class="category" value="<?=$category->id ?>" @if($category->id == 1) checked @endif>
-                                        <label class="form-check-label mr-2">
-                                            {{$category -> category_name}}
-                                        </label>
-                                    @endforeach
+                        <div class="card-text  p-3">
+                            <div class="form-group row">
+                                <div class="input-group col-sm-3">
+                                    <input type="date" name="date[]" class="form-control">
                                 </div>
-                                
+                                <div class="input-group col-sm-3">
+                                    <input type="time" name="time[]" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="plan_title[]" class="form-control" value="{{ old('title') }}" placeholder="タイトル">
+                            </div>
+                            <div class="form-group">
+                                <textarea name="contents[]" class="form-control" value="{{ old('contents') }}" placeholder="内容"></textarea>
+                            </div>
+                            <div class="form-group row justify-content-between">
+                                <div class="col-sm-6">
+                                    
+                                    <div class="form-check-inline">
+                                        @foreach($categories as $category)
+                                            <input class="form-check-input mr-0" type="radio" name="category[]" class="category" value="<?=$category->id ?>" @if($category->id == 1) checked @endif>
+                                            <label class="form-check-label mr-2">
+                                                {{$category -> category_name}}
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group delete_btn" hidden>
+                                <i class="fas fa-times fa-2x float-right col-sm-1 align-self-center text-right" id="deleteBtn_0" onclick="deletePlan(this.id)"></i>
                             </div>
                         </div>
-                        <div class="form-group delete_btn" hidden>
-                            <i class="fas fa-times fa-2x float-right col-sm-1 align-self-center text-right" id="deleteBtn_0" onclick="deletePlan(this.id)"></i>
-                        </div>
-                    </div>
                 　</div>
                 </div>
             </div>
