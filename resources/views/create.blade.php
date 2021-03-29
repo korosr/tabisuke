@@ -49,16 +49,14 @@
                             </div>
                             <div class="form-group row justify-content-between">
                                 <div class="col-sm-6">
-                                    
                                     <div class="form-check-inline">
                                         @foreach($categories as $category)
-                                            <input class="form-check-input mr-0" type="radio" name="category[]" class="category" value="<?=$category->id ?>" @if($category->id == 1) checked @endif>
+                                            <input class="form-check-input mr-0" type="radio" name="category_0" class="category_0" value="<?=$category->id ?>" @if($category->id == 1) checked @endif>
                                             <label class="form-check-label mr-2">
                                                 {{$category -> category_name}}
                                             </label>
                                         @endforeach
                                     </div>
-                                    
                                 </div>
                             </div>
                             <div class="form-group delete_btn" hidden>
@@ -96,10 +94,10 @@
                 visibleItem.text($(this).attr('value'));
             });
         });
-
-        //planboxにつけるid
+        
         var x = 1;
         var y = 1;
+        var z = 1;
         function addPlan(){
             //ルート要素を取得
             let box = document.getElementById("planbox");
@@ -109,10 +107,18 @@
             let clone = planbox.cloneNode(true);
             //クローンした要素にidを付ける
             clone.id = "planbox_"　+ x++;
+            //×ボタンに対してidを付ける
             clone.querySelector('#deleteBtn_0').id = "deleteBtn_" + y++;
+            //プランの最初に×ボタンを表示させない
             clone.querySelector('.delete_btn').hidden = false;
+            //カテゴリーのname属性設定
+            for($a=0; $a < 7; $a++){
+                clone.querySelector('input[name="category_0"]').name = 'category_' + z;
+            }
+            z++;
             //入力値をリセット
             let inputTag = clone.getElementsByTagName('input');
+
             let textareaTag = clone.getElementsByTagName('textarea');
             textareaTag[0].value = '';
             for(i=0; i < inputTag.length; i++){
