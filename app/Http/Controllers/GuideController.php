@@ -15,6 +15,8 @@ class GuideController extends Controller
 {
     //一覧表示
     public function index(){
+        //登録情報を取得
+        
         return view('index');
     }
     
@@ -27,7 +29,6 @@ class GuideController extends Controller
 
     //登録処理
     public function store(GuideRequest $guidereq, PlanRequest $planreq){
-        dd($planreq->input('category_1'));
         $guide = Guide::create([
             'title' => $guidereq->input('title'),
             'sub_title' => $guidereq->input('subtitle'),
