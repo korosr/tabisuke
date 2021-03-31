@@ -9,15 +9,17 @@
            <div class="">
                <div class="d-flex flex-row flex-wrap">
                    <table class="table">
+                        @foreach($plans as $plan)
                         <thead class="thead-light">
                             <tr>
-                                <th colspan="2" class="text-center">yyyy/MM/dd</th>
+                                <th colspan="2" class="text-center">{{ $plan -> date_time }}</th>
                             </tr>
                         </thead>
                         <tr>
                             <td>bbb</td>
                             <td>bbb</td>
                         </tr>
+                        @endforeach
                    </table>
                </div>
            </div>

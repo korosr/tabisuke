@@ -16,8 +16,9 @@ class GuideController extends Controller
     //一覧表示
     public function index(){
         //登録情報を取得
-        
-        return view('index');
+        $guides = Guide::all();
+        $plans = Plan::orderBy('date_time')->get();
+        return view('index', compact('guides','plans'));
     }
     
     //作成画面表示
@@ -37,8 +38,7 @@ class GuideController extends Controller
 
         //プラン数取得
         $plan_count = count($planreq->input('date.*'));
-        for($i=0; $i<$plan_count; $i++){
-            
+        for($i=0; $i<$plan_count; $i++){           
             //時間と日付を一緒にする
             $datetime_in = strtotime($planreq->input('date')[$i].$planreq->input('time')[$i]);
             $datetime = date('Y-m-d H:i', $datetime_in);
@@ -55,6 +55,6 @@ class GuideController extends Controller
                 'plan_id' => $plan->id,
             ]);
         }
-        return view('index');
+        return redirect('/guides');
     }
 }
