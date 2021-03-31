@@ -12,12 +12,12 @@
                         @foreach($plans as $plan)
                         <thead class="thead-light">
                             <tr>
-                                <th colspan="2" class="text-center">{{ $plan -> date_time }}</th>
+                                <th colspan="2" class="text-center">{{ $plan -> date_time -> format('Y年m月d日') }}</th>
                             </tr>
                         </thead>
                         <tr>
-                            <td>bbb</td>
-                            <td>bbb</td>
+                            <td>{{ $plan -> date_time -> format('H:i') }}</td>
+                            <td>{{ $plan -> plan_title }}</td>
                         </tr>
                         @endforeach
                    </table>

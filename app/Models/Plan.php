@@ -11,4 +11,7 @@ class Plan extends Model
     protected $guarded = [
         'id'
     ];
+    protected $dates = [
+        'date_time'
+    ];
 }
