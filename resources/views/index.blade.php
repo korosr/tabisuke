@@ -9,16 +9,22 @@
            <div class="">
                <div class="d-flex flex-row flex-wrap">
                    <table class="table">
-                        @foreach($plans as $plan)
-                        <thead class="thead-light">
+                        @foreach($plan_day as $pd)
+                            <thead class="thead-light">
+                                <tr>
+                                    <th colspan="4" class="text-center">{{ $pd }}</th>
+                                </tr>
+                            </thead>
+                            @foreach($plans as $plan)
                             <tr>
-                                <th colspan="2" class="text-center">{{ $plan -> date_time -> format('Y年m月d日') }}</th>
+                                @if($pd === $plan->date_time->format('Y年m月d日'))
+                                <td style="width:15%"><div class="text-center">{{$plan->date_time->format('H:i')}}</div></td>
+                                <td style="width:30%">{{$plan->category_name}}</td>
+                                <td style="width:30%">{{$plan->plan_title}}</td>
+                                <td style="width:30%">{{$plan->contents}}</td>
+                                @endif
                             </tr>
-                        </thead>
-                        <tr>
-                            <td>{{ $plan -> date_time -> format('H:i') }}</td>
-                            <td>{{ $plan -> plan_title }}</td>
-                        </tr>
+                            @endforeach
                         @endforeach
                    </table>
                </div>
