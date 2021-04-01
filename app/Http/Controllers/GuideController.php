@@ -16,20 +16,13 @@ class GuideController extends Controller
     //一覧表示
     public function index(){
         //登録情報を取得
-        //Guideテーブル全件
-        $guides = Guide::all();
-        //Planテーブル全件
-        //$plans = Plan::orderBy('date_time')->get();
         $plans = Plan::join('categories', 'plans.category_id', '=', 'categories.id')
             ->orderBy('date_time')
             ->get();
-        //dd($plans);
-        
-        //Guideに紐づくPlanの中の日時のみ取得
-        //SELECT plans.date_time FROM plans, guides JOIN guide_plan ON guides.id = guide_plan.guide_id WHERE plans.id = guide_plan.plan_id
-        $plan_dates = DB::select('SELECT plans.date_time FROM plans, guides JOIN guide_plan ON guides.id = guide_plan.guide_id WHERE plans.id = guide_plan.plan_id');
+
+        $plan_guide = DB::select('SELECT plans.date_time, guides.* FROM plans, guides JOIN guide_plan ON guides.id = guide_plan.guide_id WHERE plans.id = guide_plan.plan_id');
         $plan_day = array();
-        foreach($plan_dates as $plans_date){
+        foreach($plan_guide as $plans_date){
             $pdt = new DateTime($plans_date->date_time);
             $plan_day[] = $pdt->format('Y年m月d日');
         }
@@ -42,7 +35,8 @@ class GuideController extends Controller
             }
         }
         $plan_day = array_values($plan_day);
-        return view('index', compact('guides','plans', 'plan_day'));
+        
+        return view('index', compact('plan_guide','plans', 'plan_day'));
     }
     
     //作成画面表示

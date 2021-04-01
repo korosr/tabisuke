@@ -3,9 +3,12 @@
 @section('content')
 @include('nav')
 <div class="container-fluid">
-   <div class="m-3">
+   <div class="m-5">
        <div class="mx-auto" style="max-width:1200px">
-           <h1 style="color:#555555; text-align:center; font-size:1.2em; padding:24px 0px; font-weight:bold;">一覧を出す</h1>
+            <div class="d-flex align-items-center justify-content-center" style="background-image: url('{{ asset('assets/images/top_index.jpg')}}');background-position: center; width:100%;  height: 250px; background-repeat: no-repeat;">
+                <h1 style="color:#555555; text-align:center; font-size:1.2em; padding:24px 0px; font-weight:bold;">{{$plan_guide[0]->title}}</h1>
+                <h2 style="color:#555555; text-align:center; font-size:1.0em; font-weight:bold;">{{$plan_guide[0]->sub_title}}</h2>
+            </div>
            <div class="">
                <div class="d-flex flex-row flex-wrap">
                    <table class="table">
