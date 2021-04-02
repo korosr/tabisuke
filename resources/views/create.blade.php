@@ -49,14 +49,14 @@
                                 <textarea name="contents[]" class="form-control reset" value="{{ old('contents') }}" placeholder="内容"></textarea>
                             </div>
                             <div class="form-group row justify-content-between">
-                                <div class="col-sm-6">
+                                
                                     <div class="form-check-inline">
                                         @foreach($categories as $category)
                                             <input class="form-check-input mr-0" type="radio" name="category_0" class="category_0" value="<?=$category->id ?>" @if($category->id == 1) checked @endif>
                                             <label class="form-check-label mr-2">{{$category -> category_name}}</label>
                                         @endforeach
                                     </div>
-                                </div>
+                                
                             </div>
                             <div class="form-group delete_btn" hidden>
                                 <i class="fas fa-times fa-2x float-right col-sm-1 align-self-center text-right" id="deleteBtn_0" onclick="deletePlan(this.id)"></i>
