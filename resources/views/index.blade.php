@@ -5,7 +5,7 @@
 <div class="container-fluid">
    <div class="m-5">
         <div class="mx-auto" style="max-width:1200px">
-            <div class="d-flex align-items-center justify-content-center" style="background-image:url('{{asset('assets/images/top_index.jpgx')}}'); background-position:center; width:100%; height:250px; background-repeat: no-repeat;">
+            <div class="d-flex align-items-center justify-content-center" id="top_image">
                 <p style="color:#555555; text-align:center; font-size:1.2em; padding:24px 0px; font-weight:bold;">{{$plan_guide[0]->title}}</p><br>
                 <p style="color:#555555; text-align:center; font-size:1.0em; font-weight:bold;">{{$plan_guide[0]->sub_title}}</p>
             </div>
