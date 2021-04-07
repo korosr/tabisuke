@@ -40,7 +40,22 @@
                     <p class="card-text">{{$plan_guide[0]->shared_memo}}</p>
                 </div>
             </div>
+            <div class="text-center">
+                <button type="button" class="btn btn-primary">編集する</button>
+                <button type="button" class="btn btn-primary">削除する</button>
+                <button type="button" data-toggle="modal" data-target="#modal_delete" data-title="{{ $post->id }}" data-url="post/index">削除する</button>
+            </div>
         </div>
     </div>
 </div>
+<script>
+    $('#modal_delete').on('shown.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      var title = button.data('title');
+      var url = button.data('url');
+      var modal = $(this);
+      modal.find('.modal-body p').eq(0).text(title);
+      modal.find('form').attr('action',url);
+    });
+</script>
 @endsection
