@@ -22,20 +22,6 @@
                    </table>
                </div>
             </div>
-<<<<<<< HEAD
-=======
-            <div class="card border-light my-5">
-                <div class="card-header">MEMO</div>
-                <div class="card-body">
-                    <p class="card-text">{{$plan_guide[0]->shared_memo}}</p>
-                </div>
-            </div>
-            <div class="text-center">
-                <button type="button" class="btn btn-primary">編集する</button>
-                <button type="button" class="btn btn-primary">削除する</button>
-                <button type="button" data-toggle="modal" data-target="#modal_delete" data-title="{{ $post->id }}" data-url="post/index">削除する</button>
-            </div>
->>>>>>> 30d724d0412e4b7d9f1ff656da9cbb82c5e399e4
         </div>
     </div>
 </div>
