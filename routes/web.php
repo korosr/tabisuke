@@ -15,9 +15,7 @@ use App\Http\Controllers\GuideController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [App\Http\Controllers\GuideController::class, 'index']);
 
 Route::resource('/guides', GuideController::class);
 Auth::routes();
