@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'tabisuke～快適な旅をサポート～ | 旅の詳細')
 @section('content')
 @include('nav')
 <div class="container-fluid">

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'tabisuke～快適な旅をサポート～ | 旅の作成')
 @section('content')
 @include('nav')
     <div class="container">
@@ -13,8 +13,7 @@
             @csrf
             <div class="card mt-3">
               <div class="card-body pt-0">
-                <div class="card-text  p-3">          
-                    
+                <div class="card-text  p-3">            
                     <div class="md-form">
                         <label>タイトル</label>
                         <input type="text" name="title" class="form-control" value="{{ old('title') }}">
@@ -68,11 +67,11 @@
             <button type="button" class="btn btn-outline-info waves-effect" id="addbutton" onclick="addPlan()"><i class="fas fa-plus mx-1"></i>プラン追加</button>
             <div class="text-center m-5">
                 <img src="{{ asset('/assets/images/book.png') }}" alt="その他画像" class="rounded-circle" width="100" height="100">
-            </div> 
+            </div>
             <h4 class="text-center m-5 text-muted">共有事項</h4>
             <div class="card m-3">
                 <div class="card-body pt-0">
-                  <div class="card-text  pt-3">  
+                  <div class="card-text  pt-3">
                       <div class="form-group">
                         <textarea name="shared_memo" class="form-control" value="{{ old('shared_memo') }}" placeholder="内容" rows="4"></textarea>
                     </div>
