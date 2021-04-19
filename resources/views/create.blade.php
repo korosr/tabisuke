@@ -55,7 +55,6 @@
                                             <label class="form-check-label mr-2">{{$category -> category_name}}</label>
                                         @endforeach
                                     </div>
-                                
                             </div>
                             <div class="form-group delete_btn" hidden>
                                 <i class="fas fa-times fa-2x float-right col-sm-1 align-self-center text-right" id="deleteBtn_0" onclick="deletePlan(this.id)"></i>
