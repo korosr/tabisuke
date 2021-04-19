@@ -43,6 +43,9 @@
                     <p class="card-text">{{$plan_guide[0]->shared_memo}}</p>
                 </div>
             </div>
+            <div class="text-center">
+                <a href="{{ route('guides.edit') }}" class="stretched-link">編集する</a>
+            </div>
         </div>
     </div>
 </div>

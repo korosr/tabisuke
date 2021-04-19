@@ -50,6 +50,11 @@ class GuideController extends Controller
         return view('create', compact('categories'));
     }
 
+    //編集画面表示
+    public function edit(){
+        return view('create', compact('categories'));
+    }
+
     //登録処理
     public function store(GuideRequest $guidereq, PlanRequest $planreq){
         $guide = Guide::create([
