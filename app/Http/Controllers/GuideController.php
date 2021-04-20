@@ -51,8 +51,20 @@ class GuideController extends Controller
     }
 
     //編集画面表示
-    public function edit(){
-        return view('create', compact('categories'));
+    public function edit($id){
+        //カテゴリーを全て取得
+        $categories = Category::all();
+        //IDを元にDBからguide情報を取得
+        $guides = Guide::find($id);
+        
+        $plan_guide= DB::table('guide_plan')
+        ->join('guides', 'guide_plan.guide_id', '=', 'guides.id')
+        ->where('guides.id', $id)
+        ->get();
+
+        $plan
+        
+        return view('edit', compact('categories'));
     }
 
     //登録処理
