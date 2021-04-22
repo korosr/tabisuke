@@ -27,7 +27,7 @@ class GuideController extends Controller
     public function show($id){
         //登録情報を取得
         $plans = DB::select('SELECT *, DATE_FORMAT(plans.date_time, "%Y年%m月%d日") as ymd, DATE_FORMAT(plans.date_time, "%H:%i") as hm FROM plans JOIN categories ON plans.category_id = categories.id JOIN guide_plan ON plans.id = guide_plan.plan_id WHERE guide_plan.guide_id = ' .$id. ' ORDER BY plans.date_time');
-
+    
         $plan_guide = DB::select('SELECT plans.date_time, guides.* FROM plans, guides JOIN guide_plan ON guides.id = guide_plan.guide_id WHERE plans.id = guide_plan.plan_id and guides.id ='. $id);
         
         $plan_ymd = array();
@@ -55,15 +55,32 @@ class GuideController extends Controller
         //カテゴリーを全て取得
         $categories = Category::all();
         //IDを元にDBからguide情報を取得
-        $guides = Guide::find($id);
+        //$guides = Guide::find($id);
         
         $plan_guide= DB::table('guide_plan')
         ->join('guides', 'guide_plan.guide_id', '=', 'guides.id')
         ->where('guides.id', $id)
         ->get();
 
-        $plan
-        
+        $plan_id = array();
+        foreach($plan_guide as $value){
+            array_push($plan_id, $value->plan_id);
+        }
+
+        $plan = Plan::select('*')
+        ->join('categories', 'plans.category_id', '=', 'categories.id')
+        ->join('guide_plan', 'plans.id', '=', 'guide_plan.plan_id')
+        ->where('guide_plan.guide_id', $id)
+        ->orderBy('plans.date_time','asc')
+        ->get();
+
+        $ymd = array();
+        $hm = array();
+        foreach($plan as $value){
+            array_push($ymd, $value->date_time->format('Y年m月d日'));
+            array_push($hm, $value->date_time->format('H:i'));
+        }
+
         return view('edit', compact('categories'));
     }
 
@@ -97,3 +114,5 @@ class GuideController extends Controller
         return redirect('/guides');
     }
 }
+
+//select * from plans inner join categories on plans.category_id = categories.id inner join guide_plan on plans.id = guide_plan.plan_id where guide_plan.guide_id = 2 order by plans.date_time asc;
