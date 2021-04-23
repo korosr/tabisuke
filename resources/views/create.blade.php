@@ -30,7 +30,7 @@
             </div> 
             <h4 class="text-center m-5 text-muted">プラン</h4>
             <div id="planbox">
-                <div class="card mt-3 mb-3" id=planbox_0>
+                <div class="card mt-3 mb-3" id="planbox_0">
                     <div class="card-body pt-0">
                         <div class="card-text  p-3">
                             <div class="form-group row">

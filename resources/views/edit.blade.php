@@ -9,18 +9,18 @@
                 <img src="{{ asset('/assets/images/plane.png') }}" alt="しおり画像" class="rounded-circle" width="100" height="100">
             </div>    
             <h4 class="text-center m-3 text-muted">旅のタイトル</h4>
-            <form method="POST" action="{{ route('guides.store') }}">
+            <form method="post" action="{{ route('guides.update', ['guide'=> $guides->id]) }}">
             @csrf
             <div class="card mt-3">
               <div class="card-body pt-0">
                 <div class="card-text  p-3">            
                     <div class="md-form">
                         <label>タイトル</label>
-                        <input type="text" name="title" class="form-control" value="{{ old('title') }}">
+                        <input type="text" name="title" class="form-control" value="{{ $guides->title }}">
                     </div>
                     <div class="md-form">
                         <label>サブタイトル</label>
-                        <input type="text" name="subtitle" class="form-control" value="{{ old('subtitle') }}">
+                        <input type="text" name="subtitle" class="form-control" value="{{ $guides->sub_title }}">
                     </div>
                 </div>
             　</div>
@@ -30,29 +30,31 @@
             </div> 
             <h4 class="text-center m-5 text-muted">プラン</h4>
             <div id="planbox">
-                <div class="card mt-3 mb-3" id=planbox_0>
+            @foreach($plans as $plan)
+                <div class="card mt-3 mb-3" id="planbox_0">
+                    <input type="hidden" name="plan_id[]" value="{{ $plan->id }}">
                     <div class="card-body pt-0">
-                        <div class="card-text  p-3">
+                        <div class="card-text p-3">
                             <div class="form-group row">
                                 <div class="input-group col-sm-3">
-                                    <input type="date" name="date[]" class="form-control reset">
+                                    <input type="date" name="date[]" class="form-control reset" value="{{ $plan->ymd }}">
                                 </div>
                                 <div class="input-group col-sm-3">
-                                    <input type="time" name="time[]" class="form-control reset">
+                                    <input type="time" name="time[]" class="form-control reset" value="{{ $plan->hm }}">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="plan_title[]" class="form-control reset" value="{{ old('title') }}" placeholder="タイトル">
+                                <input type="text" name="plan_title[]" class="form-control reset" value="{{ $plan->plan_title }}" placeholder="タイトル">
                             </div>
                             <div class="form-group">
-                                <textarea name="contents[]" class="form-control reset" value="{{ old('contents') }}" placeholder="内容"></textarea>
+                                <textarea name="contents[]" class="form-control reset" placeholder="内容">{{ $plan->contents }}</textarea>
                             </div>
                             <div class="form-group row justify-content-between">
                                 <div class="form-check-inline">
-                                    @foreach($categories as $category)
-                                        <input class="form-check-input mr-0" type="radio" name="category_0" class="category_0" value="<?=$category->id ?>" @if($category->id == 1) checked @endif>
-                                        <label class="form-check-label mr-2">{{$category -> category_name}}</label>
-                                    @endforeach
+                                @foreach($categories as $category)
+                                    <input class="form-check-input mr-0" type="radio" id="category" name="category<?=$plan->id ?>" class="category_0" value="<?=$category->id ?>" @if($category->id == $plan->category_id) checked @endif>
+                                    <label class="form-check-label mr-2">{{$category -> category_name}}</label>
+                                @endforeach
                                 </div>
                             </div>
                             <div class="form-group delete_btn" hidden>
@@ -61,6 +63,7 @@
                         </div>
                 　  </div>
                 </div>
+            @endforeach
             </div>
             <button type="button" class="btn btn-outline-info waves-effect" id="addbutton" onclick="addPlan()"><i class="fas fa-plus mx-1"></i>プラン追加</button>
             <div class="text-center m-5">
@@ -71,12 +74,12 @@
                 <div class="card-body pt-0">
                   <div class="card-text  pt-3">
                       <div class="form-group">
-                        <textarea name="shared_memo" class="form-control" value="{{ old('shared_memo') }}" placeholder="内容" rows="4"></textarea>
-                    </div>
+                        <textarea name="shared_memo" class="form-control" placeholder="内容" rows="4">{{ $guides->shared_memo }}</textarea>
+                      </div>
                   </div>
               　</div>
             </div>
-            <button type="submit" class="btn blue-gradient btn-block col-sm-4 mx-auto d-block">作成する</button>
+            <button type="submit" class="btn blue-gradient btn-block col-sm-4 mx-auto d-block">更新する</button>
         </form>
     　　</div>
     </div>
@@ -100,7 +103,7 @@
             clone.querySelector('.delete_btn').hidden = false;
             //カテゴリーのname属性設定
             for($a=0; $a < 7; $a++){
-                clone.querySelector('input[name="category_0"]').name = 'category_' + z;
+                clone.querySelector('#category').name = 'category_' + z;
             }
             z++;
 

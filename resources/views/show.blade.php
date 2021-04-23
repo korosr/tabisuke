@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="text-center">
-                <a href="{{ route('guides.edit', ['guide'=>$plan_guide[0]->id])}}" class="stretched-link">編集する</a>
+                <a href="{{ route('guides.edit', ['guide'=> $plan_guide[0]->id]) }}" class="stretched-link">編集する</a>
             </div>
         </div>
     </div>
