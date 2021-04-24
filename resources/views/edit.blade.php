@@ -31,8 +31,8 @@
             <h4 class="text-center m-5 text-muted">プラン</h4>
             <div id="planbox">
             @foreach($plans as $plan)
-                <div class="card mt-3 mb-3" id="planbox_0">
-                    <input type="hidden" name="plan_id[]" value="{{ $plan->id }}">
+                <div class="card mt-3 mb-3" id="planbox_<?=$plan->plans_id ?>">
+                    <input type="hidden" name="plan_id[]" value="{{ $plan->plans_id }}">
                     <div class="card-body pt-0">
                         <div class="card-text p-3">
                             <div class="form-group row">
@@ -52,18 +52,56 @@
                             <div class="form-group row justify-content-between">
                                 <div class="form-check-inline">
                                 @foreach($categories as $category)
-                                    <input class="form-check-input mr-0" type="radio" id="category" name="category<?=$plan->id ?>" class="category_0" value="<?=$category->id ?>" @if($category->id == $plan->category_id) checked @endif>
+                                    <input class="form-check-input mr-0" type="radio" id="category" name="category_<?=$plan->plans_id ?>" class="category_0" value="<?=$category->id ?>" @if($category->id == $plan->category_id) checked @endif>
                                     <label class="form-check-label mr-2">{{$category -> category_name}}</label>
                                 @endforeach
                                 </div>
                             </div>
-                            <div class="form-group delete_btn" hidden>
-                                <i class="fas fa-times fa-2x float-right col-sm-1 align-self-center text-right" id="deleteBtn_0" onclick="deletePlan(this.id)"></i>
+                            <div class="form-group delete_btn  float-right">
+                                <button type="submit" name="delete" value="<?=$plan->plans_id ?>">✖</button>
+                                {{--<i class="fas fa-times fa-2x float-right col-sm-1 align-self-center text-right" id="deleteBtn_<?=$plan->plans_id ?>"></i>--}}
                             </div>
                         </div>
                 　  </div>
                 </div>
             @endforeach
+            {{--追加分--}}
+            @if($plans == null)
+            <div class="card mt-3 mb-3" id="planbox_0">
+            @else
+            <div class="card mt-3 mb-3" id="planbox_0" hidden>
+            @endif
+                <input type="hidden" name="plan_id[]">
+                <div class="card-body pt-0">
+                    <div class="card-text  p-3">
+                        <div class="form-group row">
+                            <div class="input-group col-sm-3">
+                                <input type="date" name="date[]" class="form-control reset">
+                            </div>
+                            <div class="input-group col-sm-3">
+                                <input type="time" name="time[]" class="form-control reset">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="plan_title[]" class="form-control reset" value="{{ old('title') }}" placeholder="タイトル">
+                        </div>
+                        <div class="form-group">
+                            <textarea name="contents[]" class="form-control reset" value="{{ old('contents') }}" placeholder="内容"></textarea>
+                        </div>
+                        <div class="form-group row justify-content-between">
+                            <div class="form-check-inline">
+                                @foreach($categories as $category)
+                                    <input class="form-check-input mr-0" type="radio" name="category_0" class="category_0" value="<?=$category->id ?>" @if($category->id == 1) checked @endif>
+                                    <label class="form-check-label mr-2">{{$category -> category_name}}</label>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="form-group delete_btn">
+                            <i class="fas fa-times fa-2x float-right col-sm-1 align-self-center text-right" id="deleteBtn_0" onclick="deletePlan(this.id)"></i>
+                        </div>
+                    </div>
+            　  </div>
+            </div>
             </div>
             <button type="button" class="btn btn-outline-info waves-effect" id="addbutton" onclick="addPlan()"><i class="fas fa-plus mx-1"></i>プラン追加</button>
             <div class="text-center m-5">
@@ -79,7 +117,7 @@
                   </div>
               　</div>
             </div>
-            <button type="submit" class="btn blue-gradient btn-block col-sm-4 mx-auto d-block">更新する</button>
+            <button type="submit" class="btn blue-gradient btn-block col-sm-4 mx-auto d-block" name="edit">更新する</button>
         </form>
     　　</div>
     </div>
@@ -93,27 +131,32 @@
             let box = document.getElementById("planbox");
             //コピーしたい要素取得
             let planbox = document.getElementById("planbox_0");
-            //「boxes」の要素の先頭にある子要素を複製（コピー）
-            let clone = planbox.cloneNode(true);
-            //クローンした要素にidを付ける
-            clone.id = "planbox_"　+ x++;
-            //×ボタンに対してidを付ける
-            clone.querySelector('#deleteBtn_0').id = "deleteBtn_" + y++;
-            //プランの最初に×ボタンを表示させない
-            clone.querySelector('.delete_btn').hidden = false;
-            //カテゴリーのname属性設定
-            for($a=0; $a < 7; $a++){
-                clone.querySelector('#category').name = 'category_' + z;
-            }
-            z++;
+            if(planbox.hidden == true){
+                //hidden外す
+                planbox.hidden = false;
+            }else{
+                //「boxes」の要素の先頭にある子要素を複製（コピー）
+                let clone = planbox.cloneNode(true);
+                //クローンした要素にidを付ける
+                clone.id = "planbox_"　+ x++;
+                //×ボタンに対してidを付ける
+                clone.querySelector('#deleteBtn_0').id = "deleteBtn_" + y++;
+                //プランの最初に×ボタンを表示させない
+                clone.querySelector('.delete_btn').hidden = false;
+                //カテゴリーのname属性設定
+                for($a=0; $a < 7; $a++){
+                    clone.querySelector('input[name="category_0"]').name = 'category_' + z;
+                }
+                z++;
 
-            //入力値をリセット
-            let resetInput = clone.getElementsByClassName('reset');
-            for(i=0; i < resetInput.length; i++){
-                resetInput[i].value = '';
+                //入力値をリセット
+                let resetInput = clone.getElementsByClassName('reset');
+                for(i=0; i < resetInput.length; i++){
+                    resetInput[i].value = '';
+                }
+                //「boxes」の要素の最後尾に複製した要素を追加
+                box.appendChild(clone);
             }
-            //「boxes」の要素の最後尾に複製した要素を追加
-            box.appendChild(clone);
         }
 
         function deletePlan(id){

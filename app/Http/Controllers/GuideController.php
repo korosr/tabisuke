@@ -60,32 +60,44 @@ class GuideController extends Controller
 
         //guide_idを元に全プランを取得
         $guide_id = ['id' => $id];
-        $plans = DB::select('SELECT *, DATE_FORMAT(plans.date_time, "%Y-%m-%d") as ymd, DATE_FORMAT(plans.date_time, "%H:%i") as hm FROM plans JOIN categories ON plans.category_id = categories.id JOIN guide_plan ON plans.id = guide_plan.plan_id WHERE guide_plan.guide_id = :id ORDER BY plans.date_time', $guide_id);
+        $plans = DB::select('SELECT plans.id as plans_id, plans.plan_title, plans.contents, plans.category_id, DATE_FORMAT(plans.date_time, "%Y-%m-%d") as ymd, DATE_FORMAT(plans.date_time, "%H:%i") as hm FROM plans JOIN categories ON plans.category_id = categories.id JOIN guide_plan ON plans.id = guide_plan.plan_id WHERE guide_plan.guide_id = :id ORDER BY plans.date_time', $guide_id);
         
         return view('edit', compact('categories','guides', 'plans'));
     }
 
     //編集処理
     public function updateGuide($id, GuideRequest $guidereq, PlanRequest $planreq){
-        //guide登録
-        Guide::where('id', '=', $id)
-        ->update(['title' => $guidereq->input('title'),
-                  'sub_title' => $guidereq->input('subtitle'),
-                  'shared_memo' => $guidereq->input('shared_memo'),
-                  ]);
-        //plan登録
-        $plan_ids = $planreq->input('plan_id');
-        
-        for($i=0; $i<count($plan_ids); $i++){
-            //時間と日付を一緒にする
-            $datetime_in = strtotime($planreq->input('date')[$i].$planreq->input('time')[$i]);
-            $datetime = date('Y-m-d H:i', $datetime_in);
-            Plan::where('id', '=', $plan_ids[$i])
-            ->update(['date_time' => $datetime,
-                      'plan_title' => $planreq->input('plan_title')[$i],
-                      'contents' => $planreq->input('contents')[$i],
-                      'category_id' => $planreq->input('category_'.$i),
+        if($guidereq->has('edit')){      
+            //guide更新
+            Guide::where('id', '=', $id)
+            ->update(['title' => $guidereq->input('title'),
+                    'sub_title' => $guidereq->input('subtitle'),
+                    'shared_memo' => $guidereq->input('shared_memo'),
                     ]);
+            //plan更新
+            $plan_ids = $planreq->input('plan_id');
+            dd($plan_ids);//新しくプランを追加する場合の処理を追加
+            
+            for($i=0; $i<count($plan_ids); $i++){
+                //時間と日付を一緒にする
+                $datetime_in = strtotime($planreq->input('date')[$i].$planreq->input('time')[$i]);
+                $datetime = date('Y-m-d H:i', $datetime_in);
+                Plan::where('id', '=', $plan_ids[$i])
+                ->update(['date_time' => $datetime,
+                        'plan_title' => $planreq->input('plan_title')[$i],
+                        'contents' => $planreq->input('contents')[$i],
+                        'category_id' => $planreq->input('category_'.$plan_ids[$i]),
+                        ]);
+            }
+        }
+
+        if($guidereq->has('delete')){
+            $plan_id = $planreq->input('delete');
+            //planから削除
+            $plans = Plan::find($plan_id)->delete();
+            //guide_planから削除
+            $guide_plan = GuidePlan::where('plan_id', $plan_id)->delete();
+            return redirect()->route('guides.edit', ['guide' => $id]);
         }
         return redirect()->route('guides.show', ['guide' => $id]);
     }
