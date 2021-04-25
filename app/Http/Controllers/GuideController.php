@@ -29,7 +29,7 @@ class GuideController extends Controller
         $guide_id = ['id' => $id];
         $plans = DB::select('SELECT *, DATE_FORMAT(plans.date_time, "%Y年%m月%d日") as ymd, DATE_FORMAT(plans.date_time, "%H:%i") as hm FROM plans JOIN categories ON plans.category_id = categories.id JOIN guide_plan ON plans.id = guide_plan.plan_id WHERE guide_plan.guide_id = :id ORDER BY plans.date_time', $guide_id);
     
-        $plan_guide = DB::select('SELECT plans.date_time, guides.* FROM plans, guides JOIN guide_plan ON guides.id = guide_plan.guide_id WHERE plans.id = guide_plan.plan_id and guides.id = :id', $guide_id);
+        $plan_guide = DB::select('SELECT plans.date_time, guides.* FROM plans, guides JOIN guide_plan ON guides.id = guide_plan.guide_id WHERE plans.id = guide_plan.plan_id and guides.id = :id  ORDER BY plans.date_time', $guide_id);
         
         $plan_ymd = array();
         foreach($plan_guide as $plans_date){
@@ -76,8 +76,7 @@ class GuideController extends Controller
                     ]);
             //plan更新
             $plan_ids = $planreq->input('plan_id');
-            dd($plan_ids);//新しくプランを追加する場合の処理を追加
-            
+        
             for($i=0; $i<count($plan_ids); $i++){
                 //時間と日付を一緒にする
                 $datetime_in = strtotime($planreq->input('date')[$i].$planreq->input('time')[$i]);
@@ -88,6 +87,29 @@ class GuideController extends Controller
                         'contents' => $planreq->input('contents')[$i],
                         'category_id' => $planreq->input('category_'.$plan_ids[$i]),
                         ]);
+            }
+
+            //新規のplan
+            //プラン数取得
+            $newplan = $planreq->input('newplan_title');
+            for($i=0; $i<count($newplan); $i++){
+                if($newplan[$i] != null){           
+                    //時間と日付を一緒にする
+                    $datetime_in = strtotime($planreq->input('newdate')[$i].$planreq->input('newtime')[$i]);
+                    $datetime = date('Y-m-d H:i', $datetime_in);
+                    $plan = Plan::create([
+                        'date_time' => $datetime,
+                        'plan_title' => $planreq->input('newplan_title')[$i],
+                        'contents' => $planreq->input('newcontents')[$i],
+                        'category_id' => $planreq->input('newcategory_'.$i),
+                    ]);
+        
+                    $guide_plan = new GuidePlan();
+                    $guide_plan->create([
+                        'guide_id' => $id,
+                        'plan_id' => $plan->id,
+                    ]);
+                }
             }
         }
 
@@ -131,4 +153,23 @@ class GuideController extends Controller
         }
         return redirect('/guides');
     }
+
+    //削除処理
+    public function deleteGuide($id){
+        //guideIDを基にplanID取得
+        $plan_ids = GuidePlan::where('guide_id', $id)->pluck('plan_id');
+        //planから削除
+        foreach($plan_ids as $plan_id){
+            Plan::where('id', $plan_id)->delete();
+        }
+
+        //guideから削除
+        $guide = Guide::find($id)->delete();
+        //guide_planから削除
+        $guide_plan = GuidePlan::where('guide_id', $id)->delete();
+
+        return redirect('/guides');
+    
+    }
+
 }

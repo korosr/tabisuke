@@ -43,8 +43,40 @@
                     <p class="card-text">{{$plan_guide[0]->shared_memo}}</p>
                 </div>
             </div>
-            <div class="text-center">
-                <a href="{{ route('guides.edit', ['guide'=> $plan_guide[0]->id]) }}" class="stretched-link">編集する</a>
+            <div class="justify-content-center row">
+                <div class="mx-4">
+                    <a href="{{ route('guides.edit', ['guide'=> $plan_guide[0]->id]) }}" class="stretched-link">編集する</a>
+                </div>
+                <div class="mx-4">
+                    <form method="POST" name="delete_link" action="{{ route('guides.delete', ['guide'=> $plan_guide[0]->id]) }}">
+                        @csrf
+                        <a onclick="document.delete_link.submit();" class="stretched-link delete_link" style="color:#007bff;">削除する</a>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center my-4">
+                <a href="{{ route('guides.index') }}" class="stretched-link px-4">一覧に戻る</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">確認</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                削除しますか？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">いいえ</button>
+                <button type="submit" class="btn btn-success" id="deletebtn" name="deletebtn" >はい</button>
             </div>
         </div>
     </div>

@@ -71,27 +71,27 @@
             @else
             <div class="card mt-3 mb-3" id="planbox_0" hidden>
             @endif
-                <input type="hidden" name="plan_id[]">
+                <input type="hidden" name="new_plan_id[]">
                 <div class="card-body pt-0">
                     <div class="card-text  p-3">
                         <div class="form-group row">
                             <div class="input-group col-sm-3">
-                                <input type="date" name="date[]" class="form-control reset">
+                                <input type="date" name="newdate[]" class="form-control reset">
                             </div>
                             <div class="input-group col-sm-3">
-                                <input type="time" name="time[]" class="form-control reset">
+                                <input type="time" name="newtime[]" class="form-control reset">
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="plan_title[]" class="form-control reset" value="{{ old('title') }}" placeholder="タイトル">
+                            <input type="text" name="newplan_title[]" class="form-control reset" value="{{ old('title') }}" placeholder="タイトル">
                         </div>
                         <div class="form-group">
-                            <textarea name="contents[]" class="form-control reset" value="{{ old('contents') }}" placeholder="内容"></textarea>
+                            <textarea name="newcontents[]" class="form-control reset" value="{{ old('contents') }}" placeholder="内容"></textarea>
                         </div>
                         <div class="form-group row justify-content-between">
                             <div class="form-check-inline">
                                 @foreach($categories as $category)
-                                    <input class="form-check-input mr-0" type="radio" name="category_0" class="category_0" value="<?=$category->id ?>" @if($category->id == 1) checked @endif>
+                                    <input class="form-check-input mr-0" type="radio" name="newcategory_0" class="category_0" value="<?=$category->id ?>" @if($category->id == 1) checked @endif>
                                     <label class="form-check-label mr-2">{{$category -> category_name}}</label>
                                 @endforeach
                             </div>
@@ -145,7 +145,7 @@
                 clone.querySelector('.delete_btn').hidden = false;
                 //カテゴリーのname属性設定
                 for($a=0; $a < 7; $a++){
-                    clone.querySelector('input[name="category_0"]').name = 'category_' + z;
+                    clone.querySelector('input[name="newcategory_0"]').name = 'newcategory_' + z;
                 }
                 z++;
 
@@ -163,8 +163,13 @@
             //_以降の番号を取得
             var index = id.indexOf("_");
             var number = id.slice(index+1);
-            var delPlan = document.getElementById("planbox_" + number);
-            delPlan.remove();
+            if(number == 0){
+                let planbox = document.getElementById("planbox_0");
+                planbox.hidden = true;
+            }else{
+                var delPlan = document.getElementById("planbox_" + number);
+                delPlan.remove();
+            }
 	    }
         
     </script>

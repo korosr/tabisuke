@@ -17,8 +17,9 @@ use App\Http\Controllers\GuideController;
 
 Route::get('/', [App\Http\Controllers\GuideController::class, 'index']);
 
-Route::resource('/guides', GuideController::class, ['except' => ['update']]);
+Route::resource('/guides', GuideController::class, ['except' => ['update', 'destroy']]);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/update/{guide}', [App\Http\Controllers\GuideController::class, 'updateGuide'])->name('guides.update');
+Route::post('/delete/{guide}', [App\Http\Controllers\GuideController::class, 'deleteGuide'])->name('guides.delete');
