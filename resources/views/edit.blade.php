@@ -59,7 +59,6 @@
                             </div>
                             <div class="form-group delete_btn  float-right">
                                 <button type="submit" name="delete" value="<?=$plan->plans_id ?>">✖</button>
-                                {{--<i class="fas fa-times fa-2x float-right col-sm-1 align-self-center text-right" id="deleteBtn_<?=$plan->plans_id ?>"></i>--}}
                             </div>
                         </div>
                 　  </div>

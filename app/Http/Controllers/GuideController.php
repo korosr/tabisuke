@@ -153,7 +153,7 @@ class GuideController extends Controller
         }
         return redirect('/guides');
     }
-
+   
     //削除処理
     public function deleteGuide($id){
         //guideIDを基にplanID取得
