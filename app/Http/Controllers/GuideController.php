@@ -67,7 +67,7 @@ class GuideController extends Controller
 
     //編集処理
     public function updateGuide($id, GuideRequest $guidereq, PlanRequest $planreq){
-        if($guidereq->has('edit')){      
+        if($guidereq->has('edit')){     
             //guide更新
             Guide::where('id', '=', $id)
             ->update(['title' => $guidereq->input('title'),
