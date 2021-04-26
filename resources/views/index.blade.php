@@ -25,14 +25,4 @@
         </div>
     </div>
 </div>
-<script>
-    $('#modal_delete').on('shown.bs.modal', function (event) {
-      var button = $(event.relatedTarget);
-      var title = button.data('title');
-      var url = button.data('url');
-      var modal = $(this);
-      modal.find('.modal-body p').eq(0).text(title);
-      modal.find('form').attr('action',url);
-    });
-</script>
 @endsection

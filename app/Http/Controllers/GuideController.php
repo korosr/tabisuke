@@ -169,7 +169,7 @@ class GuideController extends Controller
         $guide_plan = GuidePlan::where('guide_id', $id)->delete();
 
         return redirect('/guides');
-    
+
     }
 
 }
