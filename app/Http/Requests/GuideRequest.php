@@ -36,4 +36,13 @@ class GuideRequest extends FormRequest
             'sub_title' => 'サブタイトル',
         ];
     }
+
+    public function messages(){
+
+        return [
+            'title.required' => 'タイトルは必ず入力してください。',
+            'title.max' => 'タイトルは100文字以内で入力してください。',
+            'sub_title.max' => 'サブタイトルは100文字以内で入力してください。',
+        ];
+    }
 }

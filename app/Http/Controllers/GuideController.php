@@ -67,7 +67,7 @@ class GuideController extends Controller
 
     //編集処理
     public function updateGuide($id, GuideRequest $guidereq, PlanRequest $planreq){
-        if($guidereq->has('edit')){     
+        if($guidereq->has('edit')){
             //guide更新
             Guide::where('id', '=', $id)
             ->update(['title' => $guidereq->input('title'),
@@ -93,7 +93,7 @@ class GuideController extends Controller
             //プラン数取得
             $newplan = $planreq->input('newplan_title');
             for($i=0; $i<count($newplan); $i++){
-                if($newplan[$i] != null){           
+                if($newplan[$i] != null){
                     //時間と日付を一緒にする
                     $datetime_in = strtotime($planreq->input('newdate')[$i].$planreq->input('newtime')[$i]);
                     $datetime = date('Y-m-d H:i', $datetime_in);
@@ -126,6 +126,7 @@ class GuideController extends Controller
 
     //登録処理
     public function store(GuideRequest $guidereq, PlanRequest $planreq){
+
         $guide = Guide::create([
             'title' => $guidereq->input('title'),
             'sub_title' => $guidereq->input('subtitle'),
@@ -134,7 +135,7 @@ class GuideController extends Controller
 
         //プラン数取得
         $plan_count = count($planreq->input('date.*'));
-        for($i=0; $i<$plan_count; $i++){           
+        for($i=0; $i<$plan_count; $i++){
             //時間と日付を一緒にする
             $datetime_in = strtotime($planreq->input('date')[$i].$planreq->input('time')[$i]);
             $datetime = date('Y-m-d H:i', $datetime_in);

@@ -33,8 +33,19 @@ class PlanRequest extends FormRequest
     public function attributes()
     {
         return [
-            'date_time' => '日時',
+            'date' => '日付',
+            'time' => '時間',
             'plan_title' => 'プランタイトル',
+        ];
+    }
+
+    public function messages(){
+
+        return [
+            'date.required' => '日付は必ず入力してください。',
+            'time.required' => '時間は必ず入力してください。',
+            'plan_title.required' => 'プランタイトルは必ず入力してください。',
+            'plan_title.max' => 'プランタイトルは100文字以内で入力してください。',
         ];
     }
 }
