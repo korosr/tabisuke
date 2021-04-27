@@ -76,7 +76,7 @@ class GuideController extends Controller
                     ]);
             //plan更新
             $plan_ids = $planreq->input('plan_id');
-        
+
             for($i=0; $i<count($plan_ids); $i++){
                 //時間と日付を一緒にする
                 $datetime_in = strtotime($planreq->input('date')[$i].$planreq->input('time')[$i]);

@@ -44,10 +44,10 @@
                         <div class="card-text  p-3">
                             <div class="form-group row">
                                 <div class="input-group col-sm-3">
-                                    <input type="date" name="date" class="form-control reset">
+                                    <input type="date" name="date" class="form-control reset" value="{{ old('date') }}">
                                 </div>
                                 <div class="input-group col-sm-3">
-                                    <input type="time" name="time" class="form-control reset">
+                                    <input type="time" name="time" class="form-control reset" value="{{ old('time') }}">
                                 </div>
                             </div>
                             <div class="form-group">

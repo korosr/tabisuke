@@ -41,7 +41,7 @@
             <div id="planbox">
             @foreach($plans as $plan)
                 <div class="card mt-3 mb-3" id="planbox_<?=$plan->plans_id ?>">
-                    <input type="hidden" name="plan_id" value="{{ $plan->plans_id }}">
+                    <input type="hidden" name="plan_id[]" value="{{ $plan->plans_id }}">
                     <div class="card-body pt-0">
                         <div class="card-text p-3">
                             <div class="form-group row">
@@ -79,7 +79,7 @@
             @else
             <div class="card mt-3 mb-3" id="planbox_0" hidden>
             @endif
-                <input type="hidden" name="new_plan_id">
+                <input type="hidden" name="new_plan_id[]">
                 <div class="card-body pt-0">
                     <div class="card-text  p-3">
                         <div class="form-group row">
