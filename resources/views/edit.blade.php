@@ -10,6 +10,15 @@
             </div>    
             <h4 class="text-center m-3 text-muted">旅のタイトル</h4>
             <form method="post" action="{{ route('guides.update', ['guide'=> $guides->id]) }}">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             @csrf
             <div class="card mt-3">
               <div class="card-body pt-0">
@@ -32,22 +41,22 @@
             <div id="planbox">
             @foreach($plans as $plan)
                 <div class="card mt-3 mb-3" id="planbox_<?=$plan->plans_id ?>">
-                    <input type="hidden" name="plan_id[]" value="{{ $plan->plans_id }}">
+                    <input type="hidden" name="plan_id" value="{{ $plan->plans_id }}">
                     <div class="card-body pt-0">
                         <div class="card-text p-3">
                             <div class="form-group row">
                                 <div class="input-group col-sm-3">
-                                    <input type="date" name="date[]" class="form-control reset" value="{{ $plan->ymd }}">
+                                    <input type="date" name="date" class="form-control reset" value="{{ $plan->ymd }}">
                                 </div>
                                 <div class="input-group col-sm-3">
-                                    <input type="time" name="time[]" class="form-control reset" value="{{ $plan->hm }}">
+                                    <input type="time" name="time" class="form-control reset" value="{{ $plan->hm }}">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="plan_title[]" class="form-control reset" value="{{ $plan->plan_title }}" placeholder="タイトル">
+                                <input type="text" name="plan_title" class="form-control reset" value="{{ $plan->plan_title }}" placeholder="タイトル">
                             </div>
                             <div class="form-group">
-                                <textarea name="contents[]" class="form-control reset" placeholder="内容">{{ $plan->contents }}</textarea>
+                                <textarea name="contents" class="form-control reset" placeholder="内容">{{ $plan->contents }}</textarea>
                             </div>
                             <div class="form-group row justify-content-between">
                                 <div class="form-check-inline">
@@ -70,22 +79,22 @@
             @else
             <div class="card mt-3 mb-3" id="planbox_0" hidden>
             @endif
-                <input type="hidden" name="new_plan_id[]">
+                <input type="hidden" name="new_plan_id">
                 <div class="card-body pt-0">
                     <div class="card-text  p-3">
                         <div class="form-group row">
                             <div class="input-group col-sm-3">
-                                <input type="date" name="newdate[]" class="form-control reset">
+                                <input type="date" name="newdate" class="form-control reset">
                             </div>
                             <div class="input-group col-sm-3">
-                                <input type="time" name="newtime[]" class="form-control reset">
+                                <input type="time" name="newtime" class="form-control reset">
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="newplan_title[]" class="form-control reset" value="{{ old('title') }}" placeholder="タイトル">
+                            <input type="text" name="newplan_title" class="form-control reset" value="{{ old('newplan_title') }}" placeholder="タイトル">
                         </div>
                         <div class="form-group">
-                            <textarea name="newcontents[]" class="form-control reset" value="{{ old('contents') }}" placeholder="内容"></textarea>
+                            <textarea name="newcontents" class="form-control reset" value="{{ old('contents') }}" placeholder="内容"></textarea>
                         </div>
                         <div class="form-group row justify-content-between">
                             <div class="form-check-inline">

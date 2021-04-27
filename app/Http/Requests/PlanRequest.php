@@ -27,6 +27,9 @@ class PlanRequest extends FormRequest
             'date' => 'required',
             'time' => 'required',
             'plan_title' => 'required|max:100',
+            'newdate' => 'required',
+            'newtime' => 'required',
+            'newplan_title' => 'required|max:100',
         ];
     }
 
@@ -46,6 +49,10 @@ class PlanRequest extends FormRequest
             'time.required' => '時間は必ず入力してください。',
             'plan_title.required' => 'プランタイトルは必ず入力してください。',
             'plan_title.max' => 'プランタイトルは100文字以内で入力してください。',
+            'newdate.required' => '日付は必ず入力してください。',
+            'newtime.required' => '時間は必ず入力してください。',
+            'newplan_title.required' => 'プランタイトルは必ず入力してください。',
+            'newplan_title.max' => 'プランタイトルは100文字以内で入力してください。',
         ];
     }
 }
