@@ -44,17 +44,17 @@
                         <div class="card-text  p-3">
                             <div class="form-group row">
                                 <div class="input-group col-sm-3">
-                                    <input type="date" name="date" class="form-control reset" value="{{ old('date') }}">
+                                    <input type="date" name="date[]" class="form-control reset" value="{{ old('date') }}">
                                 </div>
                                 <div class="input-group col-sm-3">
-                                    <input type="time" name="time" class="form-control reset" value="{{ old('time') }}">
+                                    <input type="time" name="time[]" class="form-control reset" value="{{ old('time') }}">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="plan_title" class="form-control reset" value="{{ old('plan_title') }}" placeholder="タイトル">
+                                <input type="text" name="plan_title[]" class="form-control reset" value="{{ old('plan_title') }}" placeholder="タイトル">
                             </div>
                             <div class="form-group">
-                                <textarea name="contents" class="form-control reset" value="{{ old('contents') }}" placeholder="内容"></textarea>
+                                <textarea name="contents[]" class="form-control reset" value="{{ old('contents') }}" placeholder="内容"></textarea>
                             </div>
                             <div class="form-group row justify-content-between">
                                 <div class="form-check-inline">

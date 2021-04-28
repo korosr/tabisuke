@@ -24,35 +24,35 @@ class PlanRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'required',
-            'time' => 'required',
-            'plan_title' => 'required|max:100',
-            'newdate' => 'required',
-            'newtime' => 'required',
-            'newplan_title' => 'required|max:100',
+            'date.*' => 'required',
+            'time.*' => 'required',
+            'plan_title.*' => 'required|max:100',
+            'newdate.*' => 'required',
+            'newtime.*' => 'required',
+            'newplan_title.*' => 'required|max:100',
         ];
     }
 
     public function attributes()
     {
         return [
-            'date' => '日付',
-            'time' => '時間',
-            'plan_title' => 'プランタイトル',
+            // 'date' => '日付',
+            // 'time' => '時間',
+            // 'plan_title' => 'プランタイトル',
         ];
     }
 
     public function messages(){
 
         return [
-            'date.required' => '日付は必ず入力してください。',
-            'time.required' => '時間は必ず入力してください。',
-            'plan_title.required' => 'プランタイトルは必ず入力してください。',
-            'plan_title.max' => 'プランタイトルは100文字以内で入力してください。',
-            'newdate.required' => '日付は必ず入力してください。',
-            'newtime.required' => '時間は必ず入力してください。',
-            'newplan_title.required' => 'プランタイトルは必ず入力してください。',
-            'newplan_title.max' => 'プランタイトルは100文字以内で入力してください。',
+            // 'date.required' => '日付は必ず入力してください。',
+            // 'time.required' => '時間は必ず入力してください。',
+            // 'plan_title.required' => 'プランタイトルは必ず入力してください。',
+            // 'plan_title.max' => 'プランタイトルは100文字以内で入力してください。',
+            // 'newdate.required' => '日付は必ず入力してください。',
+            // 'newtime.required' => '時間は必ず入力してください。',
+            // 'newplan_title.required' => 'プランタイトルは必ず入力してください。',
+            // 'newplan_title.max' => 'プランタイトルは100文字以内で入力してください。',
         ];
     }
 }
